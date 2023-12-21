@@ -53,6 +53,9 @@
     @endforeach
 </table>
 
+{{$tasks->links()}}
+
+
 <style>
 .btn-success{
     background-color: #2928a7 !important;
