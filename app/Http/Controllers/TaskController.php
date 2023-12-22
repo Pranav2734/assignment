@@ -29,6 +29,18 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
+    public function view()
+    {
+        $search = $task['search'] ?? "";
+        if($search != ""){
+        $task = tasks::where('title','=',$search)->get();
+        }else{
+        $task = tasks::all();    
+        }
+        $data = compact('task', 'search');
+        return view('tasks.create');
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
