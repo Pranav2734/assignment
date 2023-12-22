@@ -6,14 +6,15 @@
     <h1 class="T1">Task Management System</h1>
 </div>
 
-<div class="row">
-    <form action="" class="col-4">
-         <div class="form-group">
-            <input type="search" name="search" id="" class="form-control" placeholder="Search by Title">
-         </div>
-         <button class="btn btn-primary">Search</button>
+<div class="row mt-5">
+    <form action="" class="col-sm-8">
+         <div class="form-group" style="display:flex;">
+            <input type="search" name="search" id="" class="form-control" placeholder="Search by Title" value="{{$search}}">
+            <button class="btn btn-primary ml-2">Search</button>
+
+        </div>
     </form>
-    <div class="col-lg-12 margin-tb">
+    <div class="col-sm-4">
         <div class="pull-left">
             <a class="btn btn-success" href="{{ route('tasks.create') }}">Create New Task</a>
         </div>
@@ -68,7 +69,7 @@
 <style>
 .btn-success{
     background-color: #2928a7 !important;
-    margin: 0px 0px 20px 900px;
+    margin: 0px 0px 20px 0px;
     border-color: #2928a7 !important;
     height: 40px !important;
     width: 200px !important;

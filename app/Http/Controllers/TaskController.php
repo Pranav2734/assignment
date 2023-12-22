@@ -12,11 +12,16 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $tasks = Task::paginate(5);
-        return view ('tasks.index',compact('tasks'))
-        ->with('i', (request()->input('page',1) - 1) * 10);
+    public function index(Request $request )
+    {   
+        $search = $request->input('search', '');
+
+        $tasks = Task::when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%');
+        })->paginate(5);
+    
+        return view('tasks.index', compact('tasks', 'search'))
+            ->with('i', ($tasks->currentPage() - 1) * $tasks->perPage());
     }
 
     /**
@@ -29,9 +34,9 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    public function view()
+    public function search(Request $request)
     {
-        $search = $task['search'] ?? "";
+        $search = $request['search'] ?? "";
         if($search != ""){
         $task = tasks::where('title','=',$search)->get();
         }else{
@@ -39,6 +44,10 @@ class TaskController extends Controller
         }
         $data = compact('task', 'search');
         return view('tasks.create');
+
+        $tasks = Task::paginate(5);
+        return view ('tasks.index',compact('tasks'))
+        ->with('i', (request()->input('page',1) - 1) * 10);
     }
     
     /**
